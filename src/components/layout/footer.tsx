@@ -10,7 +10,7 @@ export function Footer() {
       <div className="mx-auto max-w-7xl px-6 py-10">
         <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
           <div className="flex items-center gap-2">
-            <Film className="h-5 w-5 text-blue-600" />
+            <Film className="h-5 w-5 text-primary" />
 
             <span className="font-semibold">
               CineSpoilerS
@@ -18,11 +18,12 @@ export function Footer() {
           </div>
 
           <p className="text-center text-sm text-muted-foreground">
-            Discover movies, explore details and prepare for your next cinema experience.
+            React Router, TanStack Query, Zustand, React Hook Form, Zod, Axios,
+            Tailwind y shadcn.
           </p>
 
           <p className="text-sm text-muted-foreground">
-            © 2026
+            2026
           </p>
         </div>
       </div>

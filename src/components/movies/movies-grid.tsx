@@ -1,19 +1,31 @@
-import { movies } from "@/data/movies";
+import { useQuery } from "@tanstack/react-query";
+
+import { fetchPopularMovies } from "@/services/movie-api";
 
 import MovieCard from "./movie-card";
 
 const MoviesGrid = () => {
+  const moviesQuery = useQuery({
+    queryKey: ["movies", "popular"],
+    queryFn: fetchPopularMovies,
+  });
+
   return (
     <section className="py-4">
       <header className="mb-8">
         <h2 className="text-3xl font-bold">
-          Featured Movies
+          Peliculas destacadas
         </h2>
 
         <p className="mt-2 text-muted-foreground">
-          Most popular releases right now.
+          Informacion renderizada desde TMDB cuando hay credenciales, con datos
+          locales de respaldo para que el proyecto siempre levante.
         </p>
       </header>
+
+      {moviesQuery.isLoading ? (
+        <p className="text-muted-foreground">Cargando peliculas...</p>
+      ) : null}
 
       <div
         className="
@@ -23,7 +35,7 @@ const MoviesGrid = () => {
           lg:grid-cols-3
         "
       >
-        {movies.map((movie) => (
+        {(moviesQuery.data ?? []).map((movie) => (
           <MovieCard
             key={movie.id}
             movie={movie}

@@ -1,4 +1,4 @@
-import { Film, Menu } from "lucide-react";
+import { Film, Menu, ShoppingCart } from "lucide-react";
 import { Link, NavLink } from "react-router-dom";
 
 import { Button } from "@/components/ui/button";
@@ -7,6 +7,7 @@ import {
   SheetContent,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { useCartStore } from "@/stores/cart-store";
 
 const navigationItems = [
   {
@@ -17,9 +18,15 @@ const navigationItems = [
     label: "Movies",
     href: "/movies",
   },
+  {
+    label: "Checkout",
+    href: "/checkout",
+  },
 ];
 
 export function Navbar() {
+  const itemCount = useCartStore((state) => state.itemCount());
+
   return (
     <header className="sticky top-0 z-50 border-b bg-background/80 backdrop-blur-xl">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
@@ -27,7 +34,7 @@ export function Navbar() {
           to="/"
           className="flex items-center gap-2 font-semibold tracking-tight"
         >
-          <Film className="h-5 w-5 text-blue-600" />
+          <Film className="h-5 w-5 text-primary" />
 
           <span className="text-lg">
             CineSpoilerS
@@ -46,6 +53,13 @@ export function Navbar() {
               </NavLink>
             </Button>
           ))}
+
+          <Button asChild variant="outline" className="gap-2">
+            <Link to="/checkout">
+              <ShoppingCart />
+              {itemCount}
+            </Link>
+          </Button>
         </nav>
 
         <Sheet>
@@ -73,6 +87,13 @@ export function Navbar() {
                   </NavLink>
                 </Button>
               ))}
+
+              <Button asChild variant="outline" className="justify-start gap-2">
+                <Link to="/checkout">
+                  <ShoppingCart />
+                  Carrito ({itemCount})
+                </Link>
+              </Button>
             </div>
           </SheetContent>
         </Sheet>
